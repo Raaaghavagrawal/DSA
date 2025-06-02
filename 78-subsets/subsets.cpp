@@ -7,13 +7,11 @@ public:
         return res;
     }
     void createsubset(vector<int>&nums,int index,vector<vector<int>>&res,vector<int>&subset){
-        if(index==nums.size()){
-            res.push_back(subset);
-            return;
+        res.push_back(subset);
+        for(int i=index;i<nums.size();i++){
+            subset.push_back(nums[i]);
+            createsubset(nums,i+1,res,subset);
+            subset.pop_back();
         }
-        subset.push_back(nums[index]);
-        createsubset(nums,index+1,res,subset);
-        subset.pop_back();
-        createsubset(nums,index+1,res,subset);
     }
 };
