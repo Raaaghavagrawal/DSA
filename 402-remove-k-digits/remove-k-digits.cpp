@@ -1,53 +1,42 @@
 class Solution {
 public:
-    string removeKdigits(string num, int k) {
-        if(num.length() <= k)   
-            return "0";
-        
-        // k is 0 , no need of removing /  preforming any operation
-        if(k == 0)
-            return num;
-        
-        string res = "";// result string
-        stack <char> s; // char stack
-        
-        s.push(num[0]); // pushing first character into stack
-        
-        for(int i = 1; i<num.length(); ++i)
+    string removeKdigits(string nums, int k) {
+        stack<char>st;
+        for(int i=0;i<nums.length();i++)
         {
-            while(k > 0 && !s.empty() && num[i] < s.top())
+            while(!st.empty()&&st.top()-'0'>nums[i]-'0'&&k>0)
             {
-                // if k greater than 0 and our stack is not empty and the upcoming digit,
-                // is less than the current top than we will pop the stack top
-                --k;
-                s.pop();
+                st.pop();
+                k--;
             }
             
-            s.push(num[i]);
+                st.push(nums[i]);
             
-            // popping preceding zeroes
-            if(s.size() == 1 && num[i] == '0')
-                s.pop();
         }
-        
-        while(k && !s.empty())
+        while(k>0&&!st.empty())
         {
-            // for cases like "456" where every num[i] > num.top()
-            --k;
-            s.pop();
+            st.pop();
+            k--;
         }
-        
-        while(!s.empty())
+        if(st.empty())
         {
-            res.push_back(s.top()); // pushing stack top to string
-            s.pop(); // pop the top element
-        }
-        
-        reverse(res.begin(),res.end()); // reverse the string 
-        
-        if(res.length() == 0)
             return "0";
-        
-        return res;
+        }
+        string ans="";
+        while(!st.empty())
+        {
+           ans.push_back(st.top());
+            st.pop();
+        }
+        while(ans.size()!=0&&ans.back()=='0')
+        {
+            ans.pop_back();
+        }
+        reverse(ans.begin(),ans.end());
+        if(ans.empty())
+        {
+            return "0";
+        }
+        return ans;
     }
 };
