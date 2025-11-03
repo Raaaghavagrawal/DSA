@@ -4,15 +4,15 @@ public:
         sort(nums.begin(),nums.end());
         vector<vector<int>>result;
         vector<int>subset;
-        createsubset(nums,0,result,subset);
+        createSubset(result,0,subset,nums);
         return result;
     }
-    void createsubset(vector<int>&nums,int index,vector<vector<int>>&result,vector<int>&subset){
+    void createSubset(vector<vector<int>>&result,int index,vector<int>&subset,vector<int>&nums){
         result.push_back(subset);
         for(int i=index;i<nums.size();i++){
             if(i>index && nums[i]==nums[i-1]) continue;
             subset.push_back(nums[i]);
-            createsubset(nums,i+1,result,subset);
+            createSubset(result,i+1,subset,nums);
             subset.pop_back();
         }
     }
