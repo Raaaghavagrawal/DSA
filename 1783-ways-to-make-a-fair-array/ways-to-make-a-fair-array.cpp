@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int waysToMakeFair(vector<int>& nums) {
+        int sum[2]={},res=0;
+        for(auto i=0;i<nums.size();i++) sum[i%2]+=nums[i];
+        for(auto i=0;i<nums.size();i++){
+            sum[i%2]-=nums[i];
+            res+=sum[0]==sum[1];
+            sum[!(i%2)] += nums[i];
+        }
+        return res;
+    }
+};
