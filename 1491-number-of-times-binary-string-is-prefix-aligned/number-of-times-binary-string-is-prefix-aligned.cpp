@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int numTimesAllBlue(vector<int>& light) {
+        int n=light.size();
+        int chunk=0,sum1=0,sum2=0;
+        for(int i=0;i<n;i++){
+            sum1+=light[i]-1;
+            sum2+=i;
+            if(sum1==sum2) chunk++;
+        }
+        return chunk;
+    }
+};
